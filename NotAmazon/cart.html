@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name ="viewport" content ="width=device-width , initial-scale = 1.0">
+    <title>Shopping Cart</title>
+    <link rel ="stylesheet" href = "style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src ="store.js" async></script>
+
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <img src = "images/logo.png" width = 125px
+            </div>
+        </div>
+        <nav>
+            <ul id="MenuItems">
+                <li><a href = "index.html">Home</a></li>
+                <li><a href = "products.html">Products</a></li>
+                <li><a href = "">About</a></li>
+                <li><a href = "">Contact</a></li>
+                <li><a href = "">Account</a></li>
+            </ul>
+        </nav>
+        <img src ="images/cart.png" width= 30px  height = 30px>
+        <img src ="images/menu.png" class ="menu-icon" onclick="menutoggle()">
+
+    </div>
+<!---CART DETAILS-->
+<div class="small-container cart-page">
+        <table class = "cart-row">
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+            <tr class = "Table-row">
+                <td>
+                    <div class="cart-info">
+                        <img src = "images/buy-1.jpg">
+                        <div>
+                            <p>Red Printed T-shirt</p>
+                            <small class = "cart-price">€34.99</small> 
+                            <br>
+                            <input type = "button" class = "btn-Remove" value = "Remove">  </input>
+                            <td><input type="number" value = "1" class = "cart-quantity"></td>
+                            <td class = "elementTotal">€34.99</td>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class = "Table-row">
+                <td>
+                    <div class="cart-info">
+                        <img src = "images/buy-2.jpg">
+                        <div>
+                            <p>Red Printed T-shirt</p>
+                            <small class = "cart-price">€100.00</small> 
+                            <br>
+                            <input type = "button" class = "btn-Remove" value = "Remove">  </input>
+                            <td><input type="number" value = "1"  class = "cart-quantity"></td>
+                            <td class = "elementTotal">€100.00</td>
+                        </div>
+                    </div>
+                </td>
+                    
+            </tr>
+            <tr class = "Table-row">
+                <td>
+                    <div class="cart-info">
+                        <img src = "images/buy-3.jpg">
+                        <div>
+                            <p>Red Printed T-shirt</p>
+                            <small class = "cart-price">€75.00</small> 
+                            <br>
+                            <input type = "button" class = "btn-Remove" value = "Remove">  </input>
+                            <td><input type="number" value = "1"  class = "cart-quantity" ></td>
+                            <td class = "elementTotal">€75.00</td>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    <div class="total-price">
+        <table>
+            <tr>
+                <td>
+                    Subtotal
+                </td>
+                <td>
+                    <p class = "cart-total-price">€209.99</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!--footer-->
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download our App!</h3>
+                <p>We're on Iphone and Android ready for you!</p>
+                <div class="app-logo">
+                    <a href = "https://play.google.com/"><img src = "images/play-store.png"></a>  <a href = "https://www.apple.com/app-store/"><img src = "images/app-store.png"></a>
+                   
+                </div>
+
+            </div>
+            <div class="footer-col-2">
+                <img src="images/logo-white.png">
+                <p>We're on Iphone and Android ready for you!</p>
+
+            </div>
+            <div class="footer-col-3">
+                <h3>Useful links</h3>
+                <ul>
+                    <a href = "https://www.lipsum.com/"><li>Coupouns</li></a>
+                    <a href = "https://www.lipsum.com/"><li>Blog Post</li></a>
+                    <a href = "https://www.lipsum.com/"><li>Return policy</li></a>
+                    <a href = "https://www.lipsum.com/"><li>Join us!</li></a>
+                </ul>
+
+            </div>
+            <div class="footer-col-4">
+                <h3>Follow us!</h3>
+                <ul>
+                    <a href = "https://www.facebook.com/"><li>Facebook</li></a>
+                    <a href = "https://www.instagram.com/"><li>Instagram</li></a>
+                    <a href = "https://www.twitter.com/"><li>Twitter</li></a>
+                    <a href = "https://www.youtube.com/"><li>Youtube</li></a>
+                </ul>
+
+            </div>
+            
+        </div>
+        <hr>
+
+        
+    </div>
+</div>
+<!---JS for Menu toggle-->
+<script>
+    var MenuItems = document.getElementById("MenuItems");
+
+    MenuItems.style.maxHeight="0px";
+    function menutoggle(){
+        if(MenuItems.style.maxHeight == "0px")
+        {
+            MenuItems.style.maxHeight = "200px";
+        }
+        else
+        {
+            MenuItems.style.maxHeight = "0px";
+        }
+    }
+</script>
+</body>
+</html>
