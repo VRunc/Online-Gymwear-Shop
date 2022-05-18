@@ -1,0 +1,333 @@
+<?php
+$cartArray = "";
+//CONNECT
+$con = mysqli_connect("localhost","root","","haine");
+	if (mysqli_connect_error()){
+		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		die();
+		}
+//ARRANGE CART
+$status="";
+if (isset($_POST['code']) && $_POST['code']!=""){
+        $code = $_POST['code'];
+        $result = mysqli_query($con,"SELECT * FROM `tabhaine` WHERE `code`='$code'");
+        $row = mysqli_fetch_assoc($result);
+        $name = $row['name'];
+        $code = $row['code'];
+        $price = $row['price'];
+        $image = $row['image'];
+        
+        $cartArray = array(
+            $code=>array(
+            'name'=>$name,
+            'code'=>$code,
+            'price'=>$price,
+            'quantity'=>1,
+            'image'=>$image)
+        );
+}
+//CHECK IF PRODUCT HAS BEEN ADDED TO SHOPPING CART
+if(empty($_SESSION["shopping_cart"])) {
+	$_SESSION["shopping_cart"] = $cartArray;
+	$status = "<div class='box'>Product is added to your cart!</div>";
+}else{
+	$array_keys = array_keys($_SESSION["shopping_cart"]);
+	if(in_array($code,$array_keys)) {
+		$status = "<div class='box' style='color:red;'>
+		Product is already added to your cart!</div>";	
+	} else {
+	$_SESSION["shopping_cart"] = array_merge($_SESSION["shopping_cart"],$cartArray);
+	$status = "<div class='box'>Product is added to your cart!</div>";
+	}
+
+	}
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name ="viewport" content ="width=device-width , initial-scale = 1.0">
+    <title>NotAmazon</title>
+    <link rel ="stylesheet" href = "style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+    <div class="header">
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <img src = "images/logo.png" width = 125px
+            </div>
+        </div>
+        <nav>
+            <ul id="MenuItems">
+                <li><a href = "index.html">Home</a></li>
+                <li><a href = "products.html">Products</a></li>
+                <li><a href = "">About</a></li>
+                <li><a href = "cart.html">Cart</a></li>
+                <li><a href = "login.php">Account</a></li>
+                <li><?php if(isset($_SESSION['user_id'])){echo "Welcome!";} else echo "Log In!";?></li>
+            </ul>
+        </nav>
+        <img src ="images/cart.png" width= 30px  height = 30px>
+        <img src ="images/menu.png" class ="menu-icon" onclick="menutoggle()">
+    </div>
+        <div class="row">
+            <div class="col-2">
+                <h1>Give Your Workout<br> A New Style!</h1>
+                <p>Succes isn't always about greatness. It's about consistency. A little a day<br> moves the world away. Success will come.</p>
+                <a href ="products.html" class = "bttn">Explore Now &#8594 </a>
+            </div>
+            <div class="col-2">
+                <img src = "images/image1.png">
+            </div>
+
+            
+        </div>
+    </div>
+</div>
+<!--- featured categories ---->
+    <div class="categories">
+        <div class="small-container">
+            <div class="row">
+                <div class="col-3">
+                    <img src = "images/category-1.jpg">
+                </div>
+                <div class="col-3">
+                    <img src = "images/category-2.jpg">
+                </div>
+                <div class="col-3">
+                    <img src = "images/category-3.jpg">
+                </div>
+                
+    
+            </div>
+        </div>
+    </div>
+<!--- featured products ---->
+    <div class="small-container">
+        <h2 class = "title">Featured Products</h2>
+        <div class="row">
+            <div class="col-4">
+                <a href = "allproducts.php"><img src = "images/product-1.jpg"></a>
+                <h4>Puma Stripe Red-Black T-Shirt</h4>
+                <p>€35.00</p>
+            </div>
+            <div class="col-4">
+                <a href = "allproducts.php"><img src = "images/product-2.jpg"></a>
+                <h4>HRX Green Comfort Shoes</h4>
+                <p>€95.00</p>
+            </div>
+            <div class="col-4">
+                <a href = "allproducts.php"><img src = "images/product-3.jpg"></a>
+                <h4>All Purpose Gray Sweatpants</h4>
+                <p>€50.00</p>
+            </div>
+            <div class="col-4">
+                <a href = "allproducts.php"><img src = "images/product-4.jpg"></a>
+                <h4>Puma Blue T-Shirt</h4>
+                <p>€34.99</p>
+            </div>
+        
+        
+        </div>
+        <h2 class = "title">Latest Products</h2>
+        <div class="row">
+            <div class="col-4">
+                <a href = "allproducts.php"><img src = "images/product-5.jpg"></a>
+                <h4>Puma Stripe Red-Black T-Shirt</h4>
+                <p>€35.00</p>
+            </div>
+            <div class="col-4">
+                <a href = "allproducts.php"><img src = "images/product-6.jpg"></a>
+                <h4>HRX Green Comfort Shoes</h4>
+                <p>€95.00</p>
+            </div>
+            <div class="col-4">
+                <a href = "allproducts.php"><img src = "images/product-7.jpg"></a>
+                <h4>All Purpose Gray Sweatpants</h4>
+                <p>€50.00</p>
+            </div>
+            <div class="col-4">
+                <a href = "allproducts.php"><img src = "images/product-8.jpg"></a>
+                <h4>Puma Blue T-Shirt</h4>
+                <p>€34.99</p>
+            </div>
+            <div class="col-4">
+                <a href = "allproducts.php"><img src = "images/product-9.jpg"></a>
+                <h4>Puma Stripe Red-Black T-Shirt</h4>
+                <p>€35.00</p>
+            </div>
+            <div class="col-4">
+                <a href = "allproducts.php"><img src = "images/product-10.jpg"></a>
+                <h4>HRX Green Comfort Shoes</h4>
+                <p>€95.00</p>
+            </div>
+            <div class="col-4">
+                <a href = "allproducts.php"><img src = "images/product-11.jpg"></a>
+                <h4>All Purpose Gray Sweatpants</h4>
+                <p>€50.00</p>
+            </div>
+            <div class="col-4">
+                <a href = "allproducts.php"><img src = "images/product-12.jpg"></a>
+                <h4>Puma Blue T-Shirt</h4>
+                <p>€34.99</p>
+            </div>
+            
+        
+        
+    
+    </div>
+<!----Offer -->
+<div class="offer">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-2">
+                <img src = "images/exclusive.png" class = "offer-img">
+            </div>
+            <div class="col-2">
+                <p>Exclusively Available on Fake Amazon</p>
+                <h1>Smart Band 4</h1>
+                <small>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</small>
+                <a href="allproducts.php" class = "bttn">Buy now &#8594</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!---- Reviews-->
+<div class="reviews">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-3">
+                <i class = "fa fa-quote-left"></i>
+                <p>Lorem ipsum is placeholder text commonly used 
+                    in the graphic, print, and publishing industries 
+                    for previewing layouts and visual mockups. </p>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-o"></i>
+                    </div>
+                    <img src = "images/user-1.png">
+                    <h3>Mary Sue</h3>
+            </div>
+            <div class="col-3">
+                <i class = "fa fa-quote-left"></i>
+                <p>Lorem ipsum is placeholder text commonly used 
+                    in the graphic, print, and publishing industries 
+                    for previewing layouts and visual mockups. </p>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-o"></i>
+                    </div>
+                    <img src = "images/user-2.png">
+                    <h3>Jake Harding</h3>
+            </div>
+            <div class="col-3">
+                <i class = "fa fa-quote-left"></i>
+                <p>Lorem ipsum is placeholder text commonly used 
+                    in the graphic, print, and publishing industries 
+                    for previewing layouts and visual mockups. </p>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <img src = "images/user-3.png">
+                    <h3>Maria Kavanugh</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<!--afilliated brands-->
+<div class="brands">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-5">
+                <img src= "images/logo-godrej.png">
+            </div>
+            <div class="col-5">
+                <img src= "images/logo-oppo.png">
+            </div>
+            <div class="col-5">
+                <img src= "images/logo-paypal.png">
+            </div>
+            <div class="col-5">
+                <img src= "images/logo-philips.png">
+            </div>
+            <div class="col-5">
+                <img src= "images/logo-puma.png">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download our App!</h3>
+                <p>We're on Iphone and Android ready for you!</p>
+                <div class="app-logo">
+                    <a href = "https://play.google.com/"><img src = "images/play-store.png"></a>  <a href = "https://www.apple.com/app-store/"><img src = "images/app-store.png"></a>
+                   
+                </div>
+
+            </div>
+            <div class="footer-col-2">
+                <img src="images/logo-white.png">
+                <p>We're on Iphone and Android ready for you!</p>
+
+            </div>
+            <div class="footer-col-3">
+                <h3>Useful links</h3>
+                <ul>
+                    <a href = "https://www.lipsum.com/"><li>Coupouns</li></a>
+                    <a href = "https://www.lipsum.com/"><li>Blog Post</li></a>
+                    <a href = "https://www.lipsum.com/"><li>Return policy</li></a>
+                    <a href = "https://www.lipsum.com/"><li>Join us!</li></a>
+                </ul>
+
+            </div>
+            <div class="footer-col-4">
+                <h3>Follow us!</h3>
+                <ul>
+                    <a href = "https://www.facebook.com/"><li>Facebook</li></a>
+                    <a href = "https://www.instagram.com/"><li>Instagram</li></a>
+                    <a href = "https://www.twitter.com/"><li>Twitter</li></a>
+                    <a href = "https://www.youtube.com/"><li>Youtube</li></a>
+                </ul>
+
+            </div>
+            
+        </div>
+        <hr>
+
+        
+    </div>
+</div>
+<!---Menu toggle-->
+<script>
+    var MenuItems = document.getElementById("MenuItems");
+
+    MenuItems.style.maxHeight="0px";
+    function menutoggle(){
+        if(MenuItems.style.maxHeight == "0px")
+        {
+            MenuItems.style.maxHeight = "200px";
+        }
+        else
+        {
+            MenuItems.style.maxHeight = "0px";
+        }
+    }
+</script>
+</body>
+</html>
